@@ -3,7 +3,8 @@ ROOTDIR		= $(shell dirname `pwd`)
 CC		= gcc
 CFLAGS 		= -ggdb -Wall -ansi -pedantic -I$(ROOTDIR)/include
 LIB 		= $(ROOTDIR)/lib/libToyOS.a
-ARCHDEP		= $(ROOTDIR)/src/arch/$(ARCH)/spinlock.o
+ARCHDEP		= $(ROOTDIR)/src/arch/$(ARCH)/spinlock.o \
+			$(ROOTDIR)/src/arch/$(ARCH)/stack.o
 OBJECTS		= $(ARCHDEP) \
 			datatypes/structures/list.o \
 			datatypes/int.o \
@@ -22,6 +23,10 @@ $(LIB): $(OBJECTS)
 $(ROOTDIR)/src/arch/$(ARCH)/spinlock.o:
 	as $(ROOTDIR)/src/arch/$(ARCH)/spinlock.s -o \
 		$(ROOTDIR)/src/arch/$(ARCH)/spinlock.o
+
+$(ROOTDIR)/src/arch/$(ARCH)/stack.o:
+	as $(ROOTDIR)/src/arch/$(ARCH)/stack.s -o \
+		$(ROOTDIR)/src/arch/$(ARCH)/stack.o
 
 clean:
 	rm -rf `dirname $(LIB)`
